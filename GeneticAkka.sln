@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeneticAkka", "GeneticAkka\GeneticAkka.csproj", "{269698E6-A13E-4996-9E4B-F6F949F905BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneticAkka.Binary", "GeneticAkka.Binary\GeneticAkka.Binary.csproj", "{39E179A0-85B2-4C5F-B9C8-931346D49EE8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{269698E6-A13E-4996-9E4B-F6F949F905BA} = {269698E6-A13E-4996-9E4B-F6F949F905BA}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{269698E6-A13E-4996-9E4B-F6F949F905BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{269698E6-A13E-4996-9E4B-F6F949F905BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{269698E6-A13E-4996-9E4B-F6F949F905BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{269698E6-A13E-4996-9E4B-F6F949F905BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39E179A0-85B2-4C5F-B9C8-931346D49EE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39E179A0-85B2-4C5F-B9C8-931346D49EE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39E179A0-85B2-4C5F-B9C8-931346D49EE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39E179A0-85B2-4C5F-B9C8-931346D49EE8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CFD7073A-778E-4F8A-B57E-60BF771BD8FE}
+	EndGlobalSection
+EndGlobal
