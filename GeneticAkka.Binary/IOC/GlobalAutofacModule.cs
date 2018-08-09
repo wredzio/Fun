@@ -1,5 +1,8 @@
 ﻿using Akka.Actor;
 using Autofac;
+using GeneticAkka.Actors;
+using GeneticAkka.Actors.Populations;
+using GeneticAkka.Algorithms;
 using GeneticAkka.Binary.Models;
 using GeneticAkka.Configs;
 using System;
@@ -18,13 +21,6 @@ namespace GeneticAkka.Binary.IOC
               .Assembly;
 
             builder.InitializeGeneticAkka<BinaryChromosome>(assembly);
-
-            var _runModelActorSystem = new Lazy<ActorSystem>(() =>
-            {
-                return ActorSystem.Create("MySystem");
-            });
-
-            builder.Register<ActorSystem>(cont => _runModelActorSystem.Value);
         }
     }
 }

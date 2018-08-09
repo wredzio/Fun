@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GeneticAkka.Actors.Creators.Messages
+namespace GeneticAkka.Actors.ChromosomeBuilders.Messages
 {
-    public class CreateChromosome
+    public class BuildChromosome
     {
-        public CreateChromosome(int index)
+        public BuildChromosome(int index)
         {
             Index = index;
         }

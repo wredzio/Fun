@@ -3,11 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GeneticAkka.Actors.Creators.Messages
+namespace GeneticAkka.Actors.ChromosomeBuilders.Messages
 {
-    public class SucceededCreateChromosome<T> where T : IChromosome
+    public class SucceededBuildChromosome<T> where T : IChromosome
     {
-        public SucceededCreateChromosome(int index, T chromosome)
+        public SucceededBuildChromosome(int index, T chromosome)
         {
             Index = index;
             Chromosome = chromosome;

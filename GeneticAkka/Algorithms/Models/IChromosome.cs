@@ -4,8 +4,9 @@ using System.Text;
 
 namespace GeneticAkka.Algorithms.Models
 {
-    public interface IChromosome
+    public interface IChromosome: IComparable<IChromosome>
     {
-        float CalculateFitness();
+        double Fitnes { get; }
+        double CalculateFitness();
     }
 }

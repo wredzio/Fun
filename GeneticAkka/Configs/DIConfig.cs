@@ -1,7 +1,9 @@
-﻿using Autofac;
+﻿using Akka.Actor;
+using Autofac;
 using GeneticAkka.Actors;
-using GeneticAkka.Actors.Creators;
+using GeneticAkka.Actors.ChromosomeBuilders;
 using GeneticAkka.Actors.Populations;
+using GeneticAkka.Algorithms;
 using GeneticAkka.Algorithms.Models;
 using System;
 using System.Collections.Generic;
@@ -15,22 +17,28 @@ namespace GeneticAkka.Configs
         public static void InitializeGeneticAkka<T>(this ContainerBuilder containerBuilder, Assembly assembly) where T : IChromosome
         {
             containerBuilder.RegisterAssemblyTypes(assembly)
-                   .Where(x => x.IsAssignableTo<IChromosome>())
-                   .AsImplementedInterfaces().SingleInstance();
+                .AsClosedTypesOf(typeof(Algorithm<>));
 
             containerBuilder.RegisterAssemblyTypes(assembly)
-                    .Where(x => x.IsAssignableTo<ChromosomeCreator<IChromosome>>())
-                    .AsImplementedInterfaces().SingleInstance();
+                .AsClosedTypesOf(typeof(Population<>));
 
             containerBuilder.RegisterAssemblyTypes(assembly)
-                    .Where(x => x.IsAssignableTo<Population<IChromosome>>())
-                    .AsImplementedInterfaces().SingleInstance();
+                .AsClosedTypesOf(typeof(ChromosomeBuilder<>));
 
-            containerBuilder.RegisterType<PopulationActorCreator>()
-               .As<ActorCreator<Population<IChromosome>>>()
+            containerBuilder.RegisterType<PopulationActorCreator<T>>()
+               .As<ActorCreator<Population<T>>>()
                .SingleInstance();
 
-            containerBuilder.RegisterType<ActorCreator<ChromosomeCreator<IChromosome>>>();
+            containerBuilder.RegisterType<ChromosomeBuilderActorCreator<T>>()
+               .As<ActorCreator<ChromosomeBuilder<T>>>()
+               .SingleInstance();
+
+            var _runModelActorSystem = new Lazy<ActorSystem>(() =>
+            {
+                return ActorSystem.Create("MySystem");
+            });
+
+            containerBuilder.Register(cont => _runModelActorSystem.Value);
         }
     }
 }

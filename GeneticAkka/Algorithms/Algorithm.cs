@@ -51,7 +51,7 @@ namespace GeneticAkka.Algorithms
         {
             return message =>
             {
-                _population.Tell(new CheckEvaluationCondition());
+                _population.Tell(new CheckEvaluationCondition(_algorithmConfig.TrackBest));
             };
         }
 
@@ -61,7 +61,7 @@ namespace GeneticAkka.Algorithms
             {
                 if (message.IsSufficient)
                 {
-                    Sender.Tell(new End<T>(message.Result), Self);
+                    var c = new End<T>(message.Result);//TODO tell  resultPublisher
                 }
                 else
                 {
@@ -91,7 +91,7 @@ namespace GeneticAkka.Algorithms
         {
             return message =>
             {
-                _population.Tell(new CheckEvaluationCondition());
+                _population.Tell(new CheckEvaluationCondition(_algorithmConfig.TrackBest));
             };
         }
     }

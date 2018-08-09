@@ -6,5 +6,11 @@ namespace GeneticAkka.Actors.Populations.Messages
 {
     public class CheckEvaluationCondition
     {
+        public CheckEvaluationCondition(int trackBest)
+        {
+            TrackBest = trackBest;
+        }
+
+        public int TrackBest { get; }
     }
 }

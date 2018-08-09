@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GeneticAkka.Actors.Populations
 {
-    public class PopulationActorCreator: ActorCreator<Population<IChromosome>>
+    public class PopulationActorCreator<T>: ActorCreator<Population<T>> where T : IChromosome
     {
     }
 }

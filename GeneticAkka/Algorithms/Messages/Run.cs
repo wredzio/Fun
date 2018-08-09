@@ -7,6 +7,11 @@ namespace GeneticAkka.Algorithms.Messages
 {
     public class Run
     {
+        public Run(AlgorithmConfig algorithmConfig)
+        {
+            AlgorithmConfig = algorithmConfig;
+        }
+
         public AlgorithmConfig AlgorithmConfig { get; }
     }
 }
