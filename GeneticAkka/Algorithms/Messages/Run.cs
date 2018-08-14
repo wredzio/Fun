@@ -5,13 +5,13 @@ using System.Text;
 
 namespace GeneticAkka.Algorithms.Messages
 {
-    public class Run
+    public class Run<T> where T : IChromosome
     {
-        public Run(AlgorithmConfig algorithmConfig)
+        public Run(AlgorithmConfig<T> algorithmConfig)
         {
             AlgorithmConfig = algorithmConfig;
         }
 
-        public AlgorithmConfig AlgorithmConfig { get; }
+        public AlgorithmConfig<T> AlgorithmConfig { get; }
     }
 }

@@ -13,7 +13,7 @@ namespace GeneticAkka.Binary.Models
 
         int gens = 0;
 
-        public double Fitnes { get; private set; }
+        public float Fitness { get; private set; }
 
         public BinaryChromosome()
         {
@@ -27,16 +27,16 @@ namespace GeneticAkka.Binary.Models
 
         private double toLimit(int r) => left + Math.Abs(left - right) * r / (Math.Pow(2, power) - 1);
 
-        public double CalculateFitness()
+        public float CalculateFitness()
         {
-            Fitnes = f(toLimit(gens));
-            return Fitnes;
+            Fitness = (float)f(toLimit(gens));
+            return Fitness;
         }
 
         public int CompareTo(IChromosome other)
         {
-            if (this.Fitnes > other.Fitnes) return -1;
-            if (this.Fitnes == other.Fitnes) return 0;
+            if (this.Fitness > other.Fitness) return -1;
+            if (this.Fitness == other.Fitness) return 0;
             return 1;
         }
     }

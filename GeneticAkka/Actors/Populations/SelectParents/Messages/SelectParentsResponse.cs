@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GeneticAkka.Actors.Populations.Messages
+namespace GeneticAkka.Actors.Populations.SelectParents.Messages
 {
     public class SelectParentsResponse<T> where T : IChromosome
     {

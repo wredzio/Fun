@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GeneticAkka.Actors.Populations.Messages
+namespace GeneticAkka.Actors.Populations.CheckEvaluation.Messages
 {
     public class CheckEvaluationConditionResponse<T> where T: IChromosome
     {

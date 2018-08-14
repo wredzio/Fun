@@ -6,12 +6,15 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using GeneticAkka.Actors.ChromosomeSelectors;
+using GeneticAkka.Actors.Populations.CheckEvaluation.Messages;
 
 namespace GeneticAkka.Binary.Models
 {
     public class BinaryPopulation : Population<BinaryChromosome>
     {
-        public BinaryPopulation(ActorCreator<ChromosomeBuilder<BinaryChromosome>> chromosomeBuilderCreator) : base(chromosomeBuilderCreator)
+        public BinaryPopulation(ActorCreator<ChromosomeBuilder<BinaryChromosome>> chromosomeBuilderCreator,
+            ActorCreator<ChromosomeSelector<BinaryChromosome>> chromosomeSelectorCreator) : base(chromosomeBuilderCreator, chromosomeSelectorCreator)
         {
         }
 

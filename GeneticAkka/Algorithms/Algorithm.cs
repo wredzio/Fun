@@ -2,7 +2,11 @@
 using Akka.Event;
 using GeneticAkka.Actors;
 using GeneticAkka.Actors.Populations;
+using GeneticAkka.Actors.Populations.CheckEvaluation.Messages;
+using GeneticAkka.Actors.Populations.Crossover.Messages;
+using GeneticAkka.Actors.Populations.Initialize.Messages;
 using GeneticAkka.Actors.Populations.Messages;
+using GeneticAkka.Actors.Populations.SelectParents.Messages;
 using GeneticAkka.Algorithms.Messages;
 using GeneticAkka.Algorithms.Models;
 using System;
@@ -13,7 +17,7 @@ namespace GeneticAkka.Algorithms
 {
     public abstract class Algorithm<T> : ReceiveActor where T : IChromosome
     {
-        private AlgorithmConfig _algorithmConfig;
+        private AlgorithmConfig<T> _algorithmConfig;
         private readonly ILoggingAdapter log = Context.GetLogger();
         private IActorRef _population;
         private ActorCreator<Population<T>> _creatorActorCreator;
@@ -35,10 +39,12 @@ namespace GeneticAkka.Algorithms
             Receive(OnMutateResponse());
         }
 
-        protected virtual Action<Run> Start()
+        protected virtual Action<Run<T>> Start()
         {
             return message =>
             {
+                log.Info("Start Algorithm");
+
                 _algorithmConfig = message.AlgorithmConfig;
                 _creatorActorCreator.CreateChild(nameof(Population<T>));
                 _population = Context.ActorOf(_creatorActorCreator.GetChild(nameof(Population<T>), Context), nameof(Population<T>));
@@ -51,6 +57,8 @@ namespace GeneticAkka.Algorithms
         {
             return message =>
             {
+                log.Info("Initialize Population Response");
+
                 _population.Tell(new CheckEvaluationCondition(_algorithmConfig.TrackBest));
             };
         }
@@ -59,13 +67,15 @@ namespace GeneticAkka.Algorithms
         {
             return message =>
             {
+                log.Info("Check Evaluation Condition Response");
+
                 if (message.IsSufficient)
                 {
                     var c = new End<T>(message.Result);//TODO tell  resultPublisher
                 }
                 else
                 {
-                    _population.Tell(new SelectParents<T>(), Self);
+                    _population.Tell(new SelectParents<T>(_algorithmConfig.ReplaceByGeneration, _algorithmConfig.Selection), Self);
                 }
 
             };
@@ -75,6 +85,8 @@ namespace GeneticAkka.Algorithms
         {
             return message =>
             {
+                log.Info("Select Parents Response");
+
                 _population.Tell(new CrossoverParents<T>(), Self);
             };
         }
@@ -83,6 +95,8 @@ namespace GeneticAkka.Algorithms
         {
             return message =>
             {
+                log.Info("Crossover Parents Response");
+
                 _population.Tell(new Mutate<T>(), Self);
             };
         }
@@ -91,6 +105,8 @@ namespace GeneticAkka.Algorithms
         {
             return message =>
             {
+                log.Info("Mutate Response");
+
                 _population.Tell(new CheckEvaluationCondition(_algorithmConfig.TrackBest));
             };
         }

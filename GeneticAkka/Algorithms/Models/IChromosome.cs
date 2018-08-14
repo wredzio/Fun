@@ -6,7 +6,7 @@ namespace GeneticAkka.Algorithms.Models
 {
     public interface IChromosome: IComparable<IChromosome>
     {
-        double Fitnes { get; }
-        double CalculateFitness();
+        float Fitness { get; }
+        float CalculateFitness();
     }
 }

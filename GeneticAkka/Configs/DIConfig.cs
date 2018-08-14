@@ -2,6 +2,7 @@
 using Autofac;
 using GeneticAkka.Actors;
 using GeneticAkka.Actors.ChromosomeBuilders;
+using GeneticAkka.Actors.ChromosomeSelectors;
 using GeneticAkka.Actors.Populations;
 using GeneticAkka.Algorithms;
 using GeneticAkka.Algorithms.Models;
@@ -25,12 +26,19 @@ namespace GeneticAkka.Configs
             containerBuilder.RegisterAssemblyTypes(assembly)
                 .AsClosedTypesOf(typeof(ChromosomeBuilder<>));
 
+            containerBuilder.RegisterAssemblyTypes(assembly)
+                .AsClosedTypesOf(typeof(ChromosomeSelector<>));
+
             containerBuilder.RegisterType<PopulationActorCreator<T>>()
                .As<ActorCreator<Population<T>>>()
                .SingleInstance();
 
             containerBuilder.RegisterType<ChromosomeBuilderActorCreator<T>>()
                .As<ActorCreator<ChromosomeBuilder<T>>>()
+               .SingleInstance();
+
+            containerBuilder.RegisterType<ChromosomeSelectorActorCreator<T>>()
+               .As<ActorCreator<ChromosomeSelector<T>>>()
                .SingleInstance();
 
             var _runModelActorSystem = new Lazy<ActorSystem>(() =>

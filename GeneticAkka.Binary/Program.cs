@@ -4,6 +4,7 @@ using Akka.DI.Core;
 using Autofac;
 using GeneticAkka.Algorithms.Messages;
 using GeneticAkka.Algorithms.Models;
+using GeneticAkka.Algorithms.Selections;
 using GeneticAkka.Binary.IOC;
 using GeneticAkka.Binary.Models;
 using System;
@@ -18,7 +19,7 @@ namespace GeneticAkka.Binary
             IDependencyResolver resolver = new AutoFacDependencyResolver(ContainerOperations.Instance.Container, system);
             var myBinaryAlgorithmActor = system.ActorOf(system.DI().Props<BinaryAlgorithm>(), "Algorithm");
 
-            myBinaryAlgorithmActor.Tell(new Run(new AlgorithmConfig(2, 1, 10, 10, 50, 40, 5)));
+            myBinaryAlgorithmActor.Tell(new Run<BinaryChromosome>(new AlgorithmConfig<BinaryChromosome>(2, 1, 10000, 5000, 5, new RankingSelection<BinaryChromosome>(), new BinaryCrossover())));
 
             Console.ReadKey();
         }

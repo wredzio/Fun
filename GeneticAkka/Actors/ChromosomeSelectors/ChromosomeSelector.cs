@@ -1,27 +1,21 @@
 ﻿using Akka.Actor;
+using GeneticAkka.Actors.ChromosomeSelectors.Messages;
 using GeneticAkka.Algorithms.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GeneticAkka.Actors.ChromosomeSelectors
 {
     public abstract class ChromosomeSelector<T> : ReceiveActor where T : IChromosome
     {
-        private T[] _chromosomes;
-
         public ChromosomeSelector()
         {
-            Receive<BuildChromosome>(message => BuildChromosome(message));
+            Receive<SelectChromosome<T>>(message => SelectChromosome(message));
         }
 
-        protected virtual void BuildChromosome(BuildChromosome message)
+        protected virtual void SelectChromosome(SelectChromosome<T> message)
         {
-            var createdChromosome = BuildChromosome();
-            createdChromosome.CalculateFitness();
-            Sender.Tell(new SucceededBuildChromosome<T>(message.Index, createdChromosome));
+            var selection = message.Selection;
+            var selectedChromosome = selection.SelectParents(message.Chromosomes);
+            Sender.Tell(new SucceededSelectChromosome<T>(selectedChromosome, message.Index));
         }
-
-        protected abstract T BuildChromosome();
     }
 }
