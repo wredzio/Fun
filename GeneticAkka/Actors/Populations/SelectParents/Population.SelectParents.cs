@@ -22,7 +22,7 @@ namespace GeneticAkka.Actors.Populations
                 _parents = new Parents<T>[message.ReplaceByGeneration];
                 var creatorName = nameof(Population<T>) + nameof(ChromosomeSelector<T>);
                 _chromosomeSelectorCreator.CreateChild(creatorName);
-                var creatorRouter = Context.ActorOf(_chromosomeSelectorCreator.GetChild(creatorName, Context).WithRouter(new RoundRobinPool(10)), creatorName);
+                var creatorRouter = Context.ActorOf(_chromosomeSelectorCreator.GetChild(creatorName, Context).WithRouter(new RoundRobinPool(25)), creatorName);// TODO to config
 
                 var immutableChromosome = _chromosomes.ToImmutableArray();
 

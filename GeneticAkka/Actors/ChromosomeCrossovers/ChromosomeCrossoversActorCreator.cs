@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GeneticAkka.Actors.ChromosomeSelectors
 {
-    public class ChromosomeSelectorActorCreator<T> : ActorCreator<ChromosomeSelector<T>> where T : IChromosome
+    public class ChromosomeCrossoversActorCreator<T> : ActorCreator<ChromosomeSelector<T>> where T : IChromosome
     {
     }
 }

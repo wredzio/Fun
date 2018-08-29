@@ -29,7 +29,7 @@ namespace GeneticAkka.Actors.Populations
 
                 var creatorName = nameof(Population<T>) + nameof(ChromosomeBuilder<T>);
                 _chromosomeBuilderCreator.CreateChild(creatorName);
-                var creatorRouter = Context.ActorOf(_chromosomeBuilderCreator.GetChild(creatorName, Context).WithRouter(new RoundRobinPool(10)), creatorName);
+                var creatorRouter = Context.ActorOf(_chromosomeBuilderCreator.GetChild(creatorName, Context).WithRouter(new RoundRobinPool(25)), creatorName);
 
                 for (int i = 0; i < message.NumberOfChromosomes; i++)
                 {
