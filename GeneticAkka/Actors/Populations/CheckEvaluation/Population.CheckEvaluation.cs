@@ -16,6 +16,7 @@ namespace GeneticAkka.Actors.Populations
 
                 _currentGeneration++;
                 _bestChromosomes = new SortedList<T, int>(_bestChromosomes.Take(message.TrackBest).ToDictionary(o => o.Key, o => o.Value));
+                _newChromosomes = T[];
                 _algorithm.Tell(CheckEvaluationCondition());
             };
         }

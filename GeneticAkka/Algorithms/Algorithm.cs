@@ -87,7 +87,7 @@ namespace GeneticAkka.Algorithms
             {
                 log.Info("Select Parents Response");
 
-                _population.Tell(new CrossoverParents<T>(), Self);
+                _population.Tell(new CrossoverParents<T>(_algorithmConfig.Crossover, _algorithmConfig.CrossoverConfig), Self);
             };
         }
 

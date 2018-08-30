@@ -29,7 +29,7 @@ namespace GeneticAkka.Actors.Populations
 
                 var creatorName = nameof(Population<T>) + nameof(ChromosomeBuilder<T>);
                 _chromosomeBuilderCreator.CreateChild(creatorName);
-                var creatorRouter = Context.ActorOf(_chromosomeBuilderCreator.GetChild(creatorName, Context).WithRouter(new RoundRobinPool(25)), creatorName);
+                var creatorRouter = Context.ActorOf(_chromosomeBuilderCreator.GetChild(creatorName, Context).WithRouter(new RoundRobinPool(25)), creatorName);// TODO to config
 
                 for (int i = 0; i < message.NumberOfChromosomes; i++)
                 {
@@ -45,7 +45,10 @@ namespace GeneticAkka.Actors.Populations
                 log.Info($"Succeeded Build Chromosome, Index: ${message.Index}, Fitness: ${message.Chromosome.Fitness}");
 
                 _chromosomes[message.Index] = message.Chromosome;
-                _bestChromosomes.Add(message.Chromosome, message.Index);
+                if(!_bestChromosomes.ContainsKey(message.Chromosome))
+                {
+                    _bestChromosomes.Add(message.Chromosome, message.Index);
+                }
 
                 if (_chromosomes.All(chromosome => chromosome != null))
                 {

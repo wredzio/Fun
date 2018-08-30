@@ -8,7 +8,7 @@ namespace GeneticAkka.Algorithms.Models
 {
     public class AlgorithmConfig<T> where T : IChromosome
     {
-        public AlgorithmConfig(int mutationSize, int mutationProbability, int numberOfChromosomes, int replaceByGeneration, int trackBest, ISelection<T> selection, ICrossover<T> crossover)
+        public AlgorithmConfig(int mutationSize, int mutationProbability, int numberOfChromosomes, int replaceByGeneration, int trackBest, ISelection<T> selection, ICrossover<T> crossover, CrossoverConfig crossoverConfig)
         {
             MutationSize = mutationSize;
             MutationProbability = mutationProbability;
@@ -17,16 +17,16 @@ namespace GeneticAkka.Algorithms.Models
             TrackBest = trackBest;
             Selection = selection;
             Crossover = crossover;
+            CrossoverConfig = crossoverConfig;
         }
-
-        public int NumberOfCrossoverPoints { get; }
+        
         public int MutationSize { get; }
-        public int CrosoverProbability { get; }
         public int MutationProbability { get; }
         public int NumberOfChromosomes { get; }
         public int ReplaceByGeneration { get; }
         public int TrackBest { get; }
         public ISelection<T> Selection { get; }
         public ICrossover<T> Crossover { get; }
+        public CrossoverConfig CrossoverConfig { get; }
     }
 }

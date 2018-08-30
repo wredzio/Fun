@@ -17,6 +17,7 @@ namespace GeneticAkka.Actors.Populations
         private IActorRef _algorithm;
 
         protected SortedList<T, int> _bestChromosomes;
+        protected T[] _newChromosomes;
         protected int _currentGeneration;
 
         public Population(ActorCreator<ChromosomeBuilder<T>> chromosomeBuilderCreator, ActorCreator<ChromosomeSelector<T>> chromosomeSelectorCreator)
